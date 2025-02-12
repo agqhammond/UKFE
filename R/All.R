@@ -2399,6 +2399,7 @@ POTt <- function(x, threshold = 0.975, div, Plot = TRUE, PlotType = "l", main = 
   if(is(x, "data.frame")) {
     if(is(x[1,1], "Date") == FALSE & is(x[1,1], "POSIXct") == FALSE) stop("First column must be Date or POSIXct class")
   }
+  if(length(ncol(x)) > 2) stop("x must be either a numeric vector or a dataframe with two columns having  date (or POSIXct) in the first column and numeric variable in the second")
   PFunc <- function(TS)
   {
     L <- length(TS)-2

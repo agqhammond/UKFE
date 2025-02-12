@@ -505,7 +505,7 @@ GetDataEA_QH <- function(Lat = 54, Lon = -2.25, Range = 20, RiverName = NULL, WI
     GetQH <- function(WISKI_ID, From = NULL, To = NULL, Period = "DailyMax", Type = "flow")  {
       WISKI_ID <- as.character(WISKI_ID)
       Periods <- c("DailyMax", "DailyMean", "15Mins", "Hourly")
-      if(is.na(match(Period, Periods)) ) stop("Period must be one of DailyMax, DailyMean, 15Mins, or Hourly")
+      if(is.na(match(Period, Periods)) ) stop("Period must be one of DailyMax, DailyMean, 15Mins, or Hourly. Note that level gauges don't tend to have a DailyMean option")
       if(Type != "flow" & Type != "level") stop("Type must equal level or flow")
       if(Type == "flow") {Unit <- "-m3s"}
       if(Type == "level") {Unit <- "-m"}
