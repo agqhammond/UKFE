@@ -1,6 +1,6 @@
 #' National River Flow Archive (NRFA) annual maximum data for sites suitable for pooling
 #'
-#' A data.frame with three columns; Date, Flow, id. NRFA Peak Flow Dataset - Version 13.0.2
+#' A data.frame with three columns; Date, Flow, id. NRFA Peak Flow Dataset - Version (14?)
 #'
 #'
 #' @format A data frame with 26539 rows and 3 columns
