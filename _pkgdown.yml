@@ -1,0 +1,113 @@
+url: https://github.com/agqhammond/ukfe
+template:
+  bootstrap: 5
+reference:
+- title: "Stats functions"
+  desc: >
+    Functions for carrying out statistical distribution fitting.
+  contents:
+  - starts_with("GenLog")
+  - starts_with("GenPareto")
+  - starts_with("GEV")
+  - starts_with("Gumbel")
+  - starts_with("Kappa")
+  - starts_with("Lcv")
+  - LKurt
+  - LMoments
+  - starts_with("LSkew")
+  - OptimPars
+- title: "QMED functions"
+  desc: >
+    Functions relating to estimation of QMED (the median annual maximum flow).
+  contents:
+  - starts_with("QMED")
+  - -QMEDData
+  - DonAdj
+- title: "Pooling group functions"
+  desc: >
+    Functions relating to the creation and use of pooling groups.
+  contents:
+  - starts_with("Pool")
+  - AddGauge
+  - starts_with("Weights")
+  - LRatioChange
+  - starts_with("WGaug")
+  - starts_with("Wung")
+  - Uncertainty
+  - QuickResults
+- title: "Get data functions"
+  desc: >
+    Functions for retrieving, importing or viewing data.
+  contents:
+  - starts_with("Get")
+  - AMImport
+  - CDsXML
+- title: "Datasets"
+  desc: "Datasets saved within the package."
+  contents:
+  - AMSP
+  - NRFAData
+  - QMEDData
+  - ThamesPQ
+  - UKOutline
+- title: "Diagnostic functions"
+  desc: >
+    Functions for obtaining diagnostics.
+  contents:
+  - starts_with("GoF")
+  - H2
+  - Zdists
+  - DiagPlots
+  - AMplot
+  - ERPlot
+  - starts_with("EV")
+- title: "Rainfall functions"
+  desc: >
+    Functions relating to depth duration frequency data.
+  contents:
+  - starts_with("DDF")
+- title: "Other time series functions"
+  desc: >
+    Functions for working with time series data (e.g. aggregating and detrending data).
+  contents:
+  - AggDayHour
+  - AnnualStat
+  - DeTrend
+  - MonthlyStats
+  - starts_with("POT")
+  - TrendTest
+- title: "Other hydrological functions"
+  desc: >
+    Functions that are not directly used for FEH analysis but may be useful for other hydrological analysis.
+  contents:
+  - ARF
+  - BFI
+  - DesHydro
+  - FlowDurationCurve
+  - FlowSplit
+  - HydroPlot
+  - Rating
+  - ReFH
+  - SCF
+  - UAF
+  - UEF
+- title: "Other"
+  contents:
+  - Bootstrap
+  - ConvertGridRef
+  - EncProb
+  - NGRDist
+  - starts_with("NonFlood")
+  - SimData
+
+articles:
+- title: Data
+  navbar: ~
+  contents:
+  - R-quick-start-guide
+  - Data-input
+  - Data-visualisation
+  - FEH-statistical-analysis
+  - ReFH-analysis
+  - Troubleshooting-common-errors
+  - References
