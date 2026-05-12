@@ -1,3 +1,62 @@
+# UKFE 2.0.1
+
+## Major changes
+
+* FEH 2008 legacy functions have been added (Pool_FEH08, PoolEst_FEH08, and QMED_FEH08) for comparison with the current FEH2025 methods (now the UKFE default).
+
+## Minor changes
+
+* The LowFlows function now has the option to provide a FARL range (excluding catchments outside the range from the analysis). It also outputs the gauges used in the analysis with their weighting etc.
+
+* The ReFH function, which is now more flexible, incorporating the options of changing the unit hydrograph shape, the loss model, the baseflow component, and the rainfall profiles, has been updated so that the randomised rain profiles are created by using the FSR profile as a probability mass function. There is also an update to the way the default timestep is calculated when timestep is not specified. 
+
+## Bug fixes
+
+*The following have been fixed: The QMED function failed when individual descriptors were used as opposed to catchment descriptor objects. This was also the case with the LowFlows function. When using the GetDataEA_QH function the “DailyMax” option resulted in duplicated dates (this is what the HDE returns - so look out when downloading directly from the website). All fixed.
+
+
+# UKFE 2.0.0
+
+## Major changes
+
+* FEH2025: The Pool, QMED, and PoolEst functions amended to apply the FEH2025 methods.
+
+* QMED donors: The QMED function amended so that you can input a vector ('list' is normal parlance) of gauge IDs as donors, or you can use the no.Donors argument and simply choose N donors and the N closest to catchment centroid will be used. You can also return all the details of these gauges and associated adjustments and distances etc. The QuickResults function uses the default of 8 closest donors.
+
+* Pooling uncertainty: By default, the uncertainty calculated for pooled estimates is done bespoke for your pooling group (rather than using generalised approximating equations - as in previous version). This is done by resampling of the pooling group and an assumption about the FSE for QMED (if Gauged = FALSE) – which can be adjusted by the user. The uncertainty result is provided in the form of an FSE for each return period and associated peak flow estimate.
+
+* Defaults: The defaults for Pooling and QMED have been changed so that urban adjustments etc are applied unless otherwise specified. The Donor default is to choose any gauge (i.e. the URBEXT maximum is set at 1), you will need to reduce this if you wish to avoid urban donors when using the default ‘No.Donors’ argument.
+
+* CDs: The new descriptors are now available via the GetCDs or CDsXML function (there is a CDsXML_legacy function to read in older ones - but they won't work with the new Pool and QMED functions and would need to be adapted).
+
+* Data: Removed the two dataframes QMEDData and NRFAData and replaced them with a single dataframe called PeakFlowData (it incorporates all the info about sites suitable for pooling and/or QMED. The AMSP has also been changed. It is a dataframe of annual maximum samples. It now includes sites suitable for QMED as well as sites suitable for pooling – and has therefore been renamed as AMPF.
+
+* Historic flood estimation: There is now a function called HistoricalMLE, which allows you to estimate peak flows whilst accounting for k peaks over a specified threshold over h years prior to the AMAX record. At present it does not have the option for specifying historic discharges.
+
+* Seasonality Plot: Seasonality function has been added, for seasonality plotting. A pooled seasonality plot has also been added to the plots provided by the DiagPlots function.
+
+* LowFlows: Function called LowFlows added which estimates low flows from catchment descriptors (or individual inputs of AREA, SAAR, and an estimate of BFI). This returns  Qmean, Q95, Q70, Q50, Q10, and Q05.
+
+* ReFH: Amended ReFH function to make it a flexible tool for evaluating the plausible response to an input of rainfall. 
+
+## Minor changes
+
+* The BFI function now has the option of returning the time series of flow along with the baseflow component.
+
+* Accessibility. Many of the plots have been reformatted so that they are better for those who may have difficulty differentiating between certain colours. For example, the differences between plotted components are now highlighted by shading lines etc.  
+
+ 
+
+## Bug fixes:
+
+* Hydrometric data extraction: The extraction functions for getting hydrometric data from the HDE had missing date times where the hours changed in the summer and winter. This has been corrected by making it all GMT (as in the HDE). Furthermore, the “hourly” option was not working, and it would default to 15minutes when applied; this has been fixed.
+
+* CDsXML: When using CDsXML for sites in Northern Ireland, the grid referencing was not converted to BNG. This has been fixed.
+
+* EVPlot: If there were NA values in the sample input, this would cause an error. This has been fixed.
+
+
+
 # UKFE 1.0.0
 
 ## Major changes

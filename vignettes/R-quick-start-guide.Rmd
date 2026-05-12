@@ -119,4 +119,3 @@ If you are finding the UKFE documentation difficult to follow, or if you would l
 
 - If you have questions specifically about this package, you may find it helpful to visit the [**GitHub Discussions**](https://github.com/agqhammond/UKFE/discussions) forum associated with the repository. This is a good place to ask questions, report issues, or see if others have encountered similar problems.
 
-- [**Stack Overflow**](http://www.stackoverflow.com) is a useful resource for general R-related queries, especially for language syntax, errors, and troubleshooting.

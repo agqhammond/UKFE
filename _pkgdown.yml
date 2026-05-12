@@ -16,12 +16,12 @@ reference:
   - LMoments
   - starts_with("LSkew")
   - OptimPars
+  - HistoricMLE
 - title: "QMED functions"
   desc: >
     Functions relating to estimation of QMED (the median annual maximum flow).
   contents:
   - starts_with("QMED")
-  - -QMEDData
   - DonAdj
 - title: "Pooling group functions"
   desc: >
@@ -31,8 +31,7 @@ reference:
   - AddGauge
   - starts_with("Weights")
   - LRatioChange
-  - starts_with("WGaug")
-  - starts_with("Wung")
+  - starts_with("Weight")
   - Uncertainty
   - QuickResults
 - title: "Get data functions"
@@ -42,12 +41,12 @@ reference:
   - starts_with("Get")
   - AMImport
   - CDsXML
+  - CDsXML_Legacy
 - title: "Datasets"
   desc: "Datasets saved within the package."
   contents:
-  - AMSP
-  - NRFAData
-  - QMEDData
+  - AMPF
+  - PeakFlowData
   - ThamesPQ
   - UKOutline
 - title: "Diagnostic functions"
@@ -61,6 +60,7 @@ reference:
   - AMplot
   - ERPlot
   - starts_with("EV")
+  - Seasonality
 - title: "Rainfall functions"
   desc: >
     Functions relating to depth duration frequency data.
@@ -70,7 +70,7 @@ reference:
   desc: >
     Functions for working with time series data (e.g. aggregating and detrending data).
   contents:
-  - AggDayHour
+  - AggMonDayHour
   - AnnualStat
   - DeTrend
   - MonthlyStats
@@ -91,6 +91,7 @@ reference:
   - SCF
   - UAF
   - UEF
+  - LowFlows
 - title: "Other"
   contents:
   - Bootstrap

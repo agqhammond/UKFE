@@ -147,8 +147,6 @@ The following functions can be used to plot results from functions used in Flood
 
 * `EVPool()`
 
-* `QuickResults()`
-
 ## Uncertainty plots
 
 * `Uncertainty()`

@@ -20,11 +20,9 @@ The UKFE package includes several datasets that can be used used in analyses. Th
 
 The UKFE package contains five datasets. These are:
 
-* `AMSP`: This contains annual maximum data from the NRFA for sites suitable for pooling. These are from the AM files with years classed as rejected removed. This is a data frame with three columns containing the date, annual maximum peak flow and the NRFA gauge ID.
+* `AMPF`: This contains annual maximum data from the NRFA for sites suitable for pooling and QMED. These are from the AM files with years classed as rejected removed. This is a data frame with three columns containing the date, annual maximum peak flow and the NRFA gauge ID.
 
-* `NRFAData`: This contains catchment descriptors from the NRFA and calculated statistics for sites suitable for pooling. The statistics include L-moments, L-moment ratios, sample size and QMED, all derived from the AMAX data with rejected years removed. It is possible for the user to temporarily edit this data frame.
-
-* `QMEDData`: This contains catchment descriptors from the NRFA and calculated statistics for sites suitable for QMED and pooling. The statistics include QMED derived from the AMAX data with rejected years removed (`QMED`) and its factorial standard error (`QMEDfse`), QMED derived from catchment descriptors (`QMEDcd`) and the sample size of the AMAX data with rejected years removed (`N`). It is possible for the user to temporarily edit this data frame.
+* `PeakFlowData`: This contains catchment descriptors from the NRFA and calculated statistics for sites suitable for pooling and QMED. The statistics include L-moments, L-moment ratios, sample size and QMED, all derived from the AMAX data with rejected years removed. It is possible for the user to temporarily edit this data frame.
 
 * `ThamesPQ`: This contains daily flow and catchment rainfall for the Thames at Kingston catchment from 2000-10-01 to 2015-09-30. There are three columns containing date (`Date`), precipitation (`P`) and daily mean flow (`Q`). Dates are in the format YYYY-MM-DD, following the ISO 8601 international standard. The data are from the NRFA (gauge 39001).
 
@@ -38,15 +36,13 @@ library(UKFE)
 ```
 
 ```{r}
-# Save the 'QMEDData' data frame within the UKFE package to an object within your R 
-# environment
-QMEDData <- QMEDData
+
 
 # View the first rows of the data in the console
-head(QMEDData)
+head(PeakFlowData)
 ```
 
-The user can also supply their own data for use in analyses; however, AM files would need to be in the same format as those from the NRFA. Catchment descriptors for ungauged sites can be imported as XML files; these should either be from the FEH Web Service or NRFA, or be in the same format as those.
+The user can also supply their own data for use in analyses using the AddGauge function. This adds a gauge to the PeakFlowData dataframe for use in the pooling analysis.
 
 # Functions within the UKFE package for importing data
 
@@ -54,7 +50,7 @@ There are a range of functions for importing data, as set out in this section.
 
 ## Annual maximum data
 
-An annual maximum series can be obtained for sites suitable for pooling using the `GetAM()` function. This extracts data from the embedded `AMSP` data frame within the UKFE package. For other AMAX series available from the NRFA Peak Flow Dataset, the `AMImport()` function can be used, as can the `GetDataNRFA()` function (with `Type = "AMAX"`). The former function imports the data from the AM files and excludes the years classed as rejected. The latter function extracts the AMAX using the NRFA API. If you have a flow time series, the `AnnualStat()` function can be used to extract the water year AMAX (or any other annual statistic of interest). The following example uses the `GetAM()` option. 
+An annual maximum series can be obtained for sites suitable for pooling or QMED using the `GetAM()` function. This extracts data from the embedded `AMPF` data frame within the UKFE package. For other AMAX series available from the NRFA Peak Flow Dataset, the `AMImport()` function can be used, as can the `GetDataNRFA()` function (with `Type = "AMAX"`). The former function imports the data from the AM files and excludes the years classed as rejected. The latter function extracts the AMAX using the NRFA API. If you have a flow time series, the `AnnualStat()` function can be used to extract the water year AMAX (or any other annual statistic of interest). The following example uses the `GetAM()` option. 
 
 ```{r fig.alt="Bar chart of annual maximum river flow. The x-axis shows years, and the y-axis shows peak flow in cubic meters per second. Each bar represents the highest flow in that year. The flows vary from year to year, with several notably high peaks in recent years."}
 # Extract the AMAX data for NRFA site 55002 and save to an object called 'AM.55002'
@@ -71,7 +67,7 @@ The `AMplot()` function returns a time series bar plot of the AMAX series.
 
 ## Catchment descriptors
 
-Catchment descriptors (CDs) from the NRFA can be brought into the 'R' environment using the `GetCDs()` function. For gauged sites that are suitable for pooling or QMED, these are extracted from the `QMEDData` data frame, otherwise, they are extracted using the NRFA API. Note that if they are brought in from the NRFA API (when not suitable for QMED or pooling), some of the descriptors differ; for example, the gauge location is provided rather than the catchment centroid. There will be a warning message when this happens. An example of using the `GetCDs()` function to view the catchment descriptors for the gauge with an NRFA ID of 39001 is as follows:
+Catchment descriptors (CDs) from the NRFA can be brought into the 'R' environment using the `GetCDs()` function. For gauged sites that are suitable for pooling or QMED, these are extracted from the `PeakFlowData` data frame, otherwise, they are extracted using the NRFA API. Note that if they are brought in from the NRFA API (when not suitable for QMED or pooling), some of the descriptors differ; for example, the gauge location is provided rather than the catchment centroid. There will be a warning message when this happens. An example of using the `GetCDs()` function to view the catchment descriptors for the gauge with an NRFA ID of 39001 is as follows:
 
 ```{r}
 # Extract and view catchment descriptors for NRFA gauge 39001
@@ -87,7 +83,7 @@ CDs.39001 <- GetCDs(39001)
 
 Then, when you wish to view them, the object name `CDs.39001` can be entered into the console.
 
-If you wish to derive CDs from an XML file for catchments that aren't suitable for pooling or QMED, or are not gauged at all, you can use the `CDsXML()` function. The file path will need to be used. For Windows operating systems, the backslashes will need to be changed to forward slashes, or the file path will need to be stated as follows: `r"{my\file\path}"`. For example, you can import some descriptors downloaded from the FEH Web Service as follows:
+If you wish to derive CDs from an XML file (typically from UKCEH FEH webservice or the NRFA peak flows dataset) for catchments that aren't suitable for pooling or QMED, or are not gauged at all, you can use the `CDsXML()` function. The file path will need to be used. For Windows operating systems, the backslashes will need to be changed to forward slashes, or the file path will need to be stated as follows: `r"{my\file\path}"`. For example, you can import some descriptors downloaded from the FEH Web Service as follows:
 ```{r, eval = FALSE}
 # Extract catchment descriptors from an xml file and store in an object called 
 # 'CDs.MySite'
@@ -116,12 +112,10 @@ There are several functions with names starting with `GetData` that extract data
 
 * `GetDataNRFA()`: Extracts National River Flow Archive data (daily mean flow or catchment rainfall, AMAX, POT, gaugings and metadata).
 
-* `GetDataSEPA_QH()`: Extracts flow or level data from the Scottish Environment Protection Agency.
-
-* `GetDataSEPA_Rain()`: Extracts hourly rainfall data from the Scottish Environment Protection Agency.
+* `GetDataSEPA()`: Extracts flow, level, or rain data from the Scottish Environment Protection Agency.
 
 There are examples for all of these within each function's help file.
 
 ## QMED
 
-The `GetQMED()` function can be used to import the QMED data from the `QMEDData` data frame (derived from AMAX data). If it is not in that data frame, it automatically imports the AMAX data using the `GetAM()` function and calculates the median. 
+The `GetQMED()` function can be used to import the QMED data from the `PeakFlowData` data frame (derived from AMAX data). If it is not in that data frame, it automatically imports the AMAX data using the `GetAM()` function and calculates the median. 
