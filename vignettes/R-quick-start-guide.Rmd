@@ -2,7 +2,7 @@
 title: "R quick start guide"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{R-quick-start-guide}
+  %\VignetteIndexEntry{R quick start guide}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

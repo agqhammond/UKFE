@@ -2,7 +2,7 @@
 title: "ReFH analysis"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{ReFH-analysis}
+  %\VignetteIndexEntry{ReFH analysis}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

@@ -2,7 +2,7 @@
 title: "Troubleshooting common errors"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Troubleshooting-common-errors}
+  %\VignetteIndexEntry{Troubleshooting common errors}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

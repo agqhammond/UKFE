@@ -2,7 +2,7 @@
 title: "FEH statistical analysis"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{FEH-statistical-analysis}
+  %\VignetteIndexEntry{FEH statistical analysis}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
