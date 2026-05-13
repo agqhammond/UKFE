@@ -1310,7 +1310,7 @@ QMED <- function(CDs = NULL, DonorIDs = NULL, no.Donors = NULL, alpha = TRUE, Ur
     #if(CDs[grep("East", CDs[,1], ignore.case = TRUE),1] != "CEast") stop("These descriptors are derived from the NRFA web pages because the site is not suitable for pooling or QMED. The descriptors don't have easting and northing for the catchment centroid, they are for the gauge location. You have some options to make these CDs work for this function. Firstly, use the CDsXML function to get them from a downloaded NRFA peak flow data set (if they have peak flows but are not suitable for QMED/Pooling), or a FEH webservice export. Secondly, change the Easting and Northing descriptor names to CEast and CNorth, then replace the values with the centroid equivalent. Alternatively, you can input the necessary descriptors manually. Note also that the descriptors can differ a little between the NRFA website and the NRFA peak flow data set (particularly the catchment area)")
     if(class(CDs) != class(data.frame(c(1,2,3)))) stop("CDs must be a CDs dataframe object which can be derived using the GetCDs or CDsXML function")
     CDsTest <- GetCDs(rownames(PeakFlowData)[1])
-    if(!identical(CDs[,1], CDsTest[,1])) stop("CDs must be a CDs dataframe object which can be derived using the GetCDs or CDsXML function")
+    if(!identical(CDs[,1], CDsTest[,1])) stop("CDs must be a CDs dataframe object which can be derived using the GetCDs or CDsXML function. If you got the CDs using GetDataNRFA, the grid reference is based on the gauge location as opposed to the catchment centroid and the descriptors are called Easting and Northing rather than CEast and CNorth. You can change the grid references mannually, you will also need to change Easting and Northing to CEast and CNorth (or this error will happen again)")
   }
 
   uaf <- function(URBEXT, BFIHOST) {
@@ -1359,6 +1359,7 @@ QMED <- function(CDs = NULL, DonorIDs = NULL, no.Donors = NULL, alpha = TRUE, Ur
   }
 
   if(is.null(no.Donors) == FALSE) {
+    if(CDs[grep("East", CDs[,1]),1] == "Easting") warning("The easting and northing do not appear to be for the catchment centroid, this is necessary if donor adjustment is being undertaken")
     if(no.Donors < 1) stop("no.Donors should be NULL or equal to or above 1")
     if(no.Donors > 20) stop("no.Donors is rather high")
     no.Donors <- round(no.Donors)
@@ -1371,6 +1372,7 @@ QMED <- function(CDs = NULL, DonorIDs = NULL, no.Donors = NULL, alpha = TRUE, Ur
     IDs <- rownames(DonOptions)
   }
   if(is.null(DonorIDs) == FALSE) {
+    if(CDs[grep("East", CDs[,1]),1] == "Easting") warning("The easting and northing do not appear to be for the catchment centroid, this is necessary if donor adjustment is being undertaken")
     IDs <- DonorIDs
   }
   CDsList <- list()

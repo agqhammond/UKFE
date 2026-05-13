@@ -530,14 +530,17 @@ GetDataNRFA <- function(ID = NULL, Type = "Q") {
     AllCat <- read.csv("https://nrfaapps.ceh.ac.uk/nrfa/ws/station-info?station=*&format=csv&fields=all")
     #AllCat <- GetDataNRFA(Type = "Catalogue")
     CDsCat <- AllCat[which(AllCat$id == ID), ]
-    CDIndex <- c(97, 93, 94, 95, 99, 98, 83, 92, 86, 85, 84, 1, 91, 82, 90, 88, 89, 64, 63, 62, 87, 110, 107, 104, 100, 5, 6)
+    CDIndex <- c(97, 93, 94, 95, 99, 98, 83, 92, 86, 85, 84, 103, 91, 82, 90, 88, 89, 64, 63, 62, 87, 110, 107, 104, 100, 5, 6)
     CDs39001 <- GetCDs(39001)
     Value <- as.numeric(CDsCat[1,CDIndex])
     Result <- data.frame(Descriptor = CDs39001$Descriptor,
                          Value)
-    Result[grep("FPEXT", Result$Descriptor),2] <- exp(-0.67 * log(Result[grep("DPSBAR", Result$Descriptor) , 2]))
-    warning("The FPEXT is an estimate based on DPSBAR. It may not be appropriate. If your catchment is suitable for pooling/QMED, use the GetCDs function instead. You can also use the CDsXML function")
+    #Result[grep("FPEXT", Result$Descriptor),2] <- exp(-0.67 * log(Result[grep("DPSBAR", Result$Descriptor) , 2]))
+    #warning("The FPEXT is an estimate based on DPSBAR. It may not be appropriate. If your catchment is suitable for pooling/QMED, use the GetCDs function instead. You can also use the CDsXML function")
     Result[1:25,2] <- round(Result[1:25,2], 3)
+    Result[26,1] <- "Easting"
+    Result[27,1] <- "Northing"
+    warning("The easting and northing returned via this function provides the gauge location, not the catchment centroid. The latter is returned by the GetCDs function and centroid is necessary for QMED estimation with donor adjustment.")
     return(Result)
   }
 
