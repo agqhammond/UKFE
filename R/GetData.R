@@ -670,8 +670,19 @@ GetDataEA_QH  <- function(Lat = 54, Lon = -2.25, Range = 20, RiverName = NULL, W
 
       FlowIndex <- which(FlowsGrep == 1)
       LevelIndex <- which(LevelGrep == 1)
-      FlowStations <- StationsWithinRange[FlowIndex, c(3, 14, 5, 6, 10)]
-      LevelStations <- StationsWithinRange[LevelIndex, c(3, 14, 5, 6, 10)]
+      Headings <- colnames(StationsWithinRange)
+      Col1 <- grep("wiskiID", Headings)
+      Col2 <- grep("label", Headings)[1]
+      Col3 <- grep("riverName", Headings)
+      Col4 <- grep("easting", Headings)
+      Col5 <- grep("northing", Headings)
+      Col6 <- grep("Opened", Headings)
+      Col7 <- grep("Closed", Headings)
+
+      FlowStations <- StationsWithinRange[FlowIndex, c(Col1, Col2, Col3, Col4, Col5, Col6, Col7)]
+      LevelStations <- StationsWithinRange[LevelIndex, c(Col1, Col2, Col3, Col4, Col5, Col6, Col7)]
+      FlowStations$Type <- "Flow"
+      LevelStations$Type <- "Level"
 
       MatchFlow <- match(FlowStations$wiskiID, LevelStations$wiskiID)
       MatchFlow <- MatchFlow[!is.na(MatchFlow)]
@@ -697,8 +708,31 @@ GetDataEA_QH  <- function(Lat = 54, Lon = -2.25, Range = 20, RiverName = NULL, W
       StagePath <- paste("https://environment.data.gov.uk/hydrology/id/stations.csv?observedProperty=waterLevel&riverName=River+", RiverName, sep = "")
       FlowStations <- read.csv(FlowPath)
       LevelStations <- read.csv(StagePath)
-      FlowStations <- FlowStations[, c(3, 14, 5, 6, 10)]
-      LevelStations <- LevelStations[, c(3, 14, 5, 6, 10)]
+      HeadingsFlow <- colnames(FlowStations)
+      HeadingsLevel <- colnames(LevelStations)
+      Col1 <- grep("wiskiID", HeadingsFlow)
+      Col2 <- grep("label", HeadingsFlow)[1]
+      Col3 <- grep("riverName", HeadingsFlow)
+      Col4 <- grep("easting", HeadingsFlow)
+      Col5 <- grep("northing", HeadingsFlow)
+      Col6 <- grep("Opened", HeadingsFlow)
+      Col7 <- grep("Closed", HeadingsFlow)
+
+      FlowStations <- FlowStations[, c(Col1, Col2, Col3, Col4, Col5, Col6 ,Col7)]
+
+      Col1 <- grep("wiskiID", HeadingsLevel)
+      Col2 <- grep("label", HeadingsLevel)[1]
+      Col3 <- grep("riverName", HeadingsLevel)
+      Col4 <- grep("easting", HeadingsLevel)
+      Col5 <- grep("northing", HeadingsLevel)
+      Col6 <- grep("Opened", HeadingsLevel)
+      Col7 <- grep("Closed", HeadingsLevel)
+
+      LevelStations <- LevelStations[, c(Col1, Col2, Col3, Col4, Col5, Col6 ,Col7)]
+
+      FlowStations$Type <- "Flow"
+      LevelStations$Type <- "Level"
+
       MatchFlow <- match(FlowStations$wiskiID, LevelStations$wiskiID)
       MatchFlow <- MatchFlow[!is.na(MatchFlow)]
       ResultList <- list(FlowStations, LevelStations[-MatchFlow, ])
