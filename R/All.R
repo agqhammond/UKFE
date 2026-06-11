@@ -14,6 +14,7 @@ globalVariables(c("ThamesPQ", "PeakFlowData", "UKOutline", "AMPF", "id", "URBEXT
 #' @param dist a choice of distribution for the estimates. The choices are "GenLog", "GEV", "Kappa3", or "Gumbel; the generalised logistic, generalised extreme value, Kappa3,and Gumbel distributions, respectively. The default is "GenLog"
 #' @param UrbMax A maximum value for URBEXT2015 permitted in the pooling group. The default is 0.03.
 #' @param Include A site reference for any site you want to ensure is in the pooling group if it is not chosen automatically. For example, a site which has URBEXT2015 above UrbMax.
+#' @param Exclude A site reference for any site you want to exclude from the pooling group. Useful for testing a gauged site as if it is ungauged.
 #' @examples
 #' # Get some catchment descriptors
 #' cds_73005 <- GetCDs(73005)
@@ -28,14 +29,14 @@ globalVariables(c("ThamesPQ", "PeakFlowData", "UKOutline", "AMPF", "id", "URBEXT
 #' @return A list of length three. Element one is a data frame with columns; return period (RP), peak flow estimates (Q) and growth factor estimates (GF). The second element is the estimated Lcv and Lskew (linear coefficient of variation and skewness). The third element is a dataframe with the distribution parameters.
 #' @author Anthony Hammond
 
-QuickResults <- function(CDs, no.Donors = 8, dist = "GenLog", Qmed = NULL, UrbMax = 0.03, Include = NULL) {
+QuickResults <- function(CDs, no.Donors = 8, dist = "GenLog", Qmed = NULL, UrbMax = 0.03, Include = NULL, Exclude = NULL) {
   if(class(CDs) != class(data.frame(c(1,2,3)))) stop("CDs must be a CDs dataframe object which can be derived using the GetCDs or CDsXML function")
   CDsTest <- GetCDs(rownames(PeakFlowData)[1])
   if(!identical(CDs[,1], CDsTest[,1])) stop("CDs must be a CDs dataframe object which can be derived using the GetCDs or CDsXML function")
 
   QMEDEst <- QMED(CDs = CDs, no.Donors = no.Donors)
 if(is.null(Qmed)) {QMEDEst <- QMEDEst} else {QMEDEst <- Qmed}
-PoolCDs <- Pool(CDs = CDs, UrbMax = UrbMax, include = Include)
+PoolCDs <- Pool(CDs = CDs, UrbMax = UrbMax, include = Include, exclude = Exclude)
 Estimates <- PoolEst(PoolCDs, CDs = CDs, dist = dist, QMEDEstimate = QMEDEst, Uncertainty = FALSE)
 return(Estimates)
 }
