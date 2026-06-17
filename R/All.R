@@ -1745,6 +1745,8 @@ DeTrend <- function(x) {
 CDsXML <- function(x) {
   xmlx <- xml2::read_xml(x)
   ListXML <- xml2::as_list(xmlx)
+  TheList <- ListXML$FEHCDROMExportedDescriptors
+  if(length(TheList) == 3) stop("this function cannot be used to read in point files. Use the DDFImport function to import point DDF curves")
   if(attributes(ListXML)$names == "FEHCDROMExportedDescriptors") {
     CDS <- ListXML$FEHCDROMExportedDescriptors$CatchmentDescriptors
   }

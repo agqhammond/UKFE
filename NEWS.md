@@ -1,3 +1,17 @@
+
+# UKFE 2.0.2
+
+## Minor changes
+
+* QuickResults and Pool now have an "Exclude" argument so that particular sites can be specifically excluded from the pooling group. Particularly useful if "pretend un-gauged" estimate is wanted from QuickResults.  
+* Some clearer error messaging has been added to the QMED function in regard to the source of the CDs object being applied.
+* Added an error message in the CDsXML function for the case of a user trying to use it with a point CDs file exported from the FEH Webservice. 
+
+## Bug Fixes
+
+* The legacy functions (Pool_FEH08, PoolEst_FEH08, and QMED_FEH08) worked with the current CDs but not with CDs read in with the CDsXML_Legacy function. This has been fixed and the appropriate descriptors used.
+* The GetDataEA_QH function was returning the wrong columns from the HDE data when gauge searching options were used (RiverName or Lat and Lon). It is assumed that the columns we're re-arranged on the data provider side. This has been fixed and the columns are now selected by column name as opposed to column index.  
+
 # UKFE 2.0.1
 
 ## Major changes
