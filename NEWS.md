@@ -3,7 +3,7 @@
 
 ## Minor changes
 
-* QuickResults and Pool now have an "Exclude" argument so that particular sites can be specifically excluded from the pooling group. Particularly useful if "pretend un-gauged" estimate is wanted from QuickResults.  
+* QuickResults now has an "Exclude" argument so that particular sites can be specifically excluded from the pooling group. Particularly useful if "pretend un-gauged" estimate is wanted from QuickResults.  
 * Some clearer error messaging has been added to the QMED function in regard to the source of the CDs object being applied.
 * Added an error message in the CDsXML function for the case of a user trying to use it with a point CDs file exported from the FEH Webservice. 
 
