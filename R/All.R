@@ -114,7 +114,7 @@ Pool <- function(CDs, N = 800, UrbMax = 0.03, DeUrb = TRUE, exclude = NULL, incl
     Indices <- match(exclude, rownames(PoolDataSDM))
     if(any(is.na(Indices))) {Indices <- Indices[!is.na(Indices)]}
     if(length(Indices) == 0) {
-      warning("The exclude index did not match any gauges that are suitable for pooling and have URBEXT2015 below UrbMax")
+      warning("The exclude id did not match any gauges that are suitable for pooling and have URBEXT2015 below UrbMax")
       PoolDataSDM <- PoolDataSDM}
     else {PoolDataSDM <- PoolDataSDM[-Indices,]}
   }
@@ -3652,9 +3652,6 @@ AMplot <- function(x, ylab = "Discharge (m3/s)", xlab = "Hydrological year", mai
 #' pool_28015 <- Pool(GetCDs(28015))
 #' DiagPlots(pool_28015, gauged = TRUE)
 #'
-#' # Form an ungauged pooling group and plot the diagnostics
-#' pool_28015 <- Pool(GetCDs(28015), exclude = 28015)
-#' DiagPlots(pool_28015)
 #'
 #' @return Eleven diagnostic plots for pooling groups
 #' @author Anthony Hammond

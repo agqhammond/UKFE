@@ -18,4 +18,3 @@ Depends: R (>= 2.10)
 VignetteBuilder: knitr
 Imports: xml2, methods, sf
 Suggests: knitr, rmarkdown
-StagedInstall: no

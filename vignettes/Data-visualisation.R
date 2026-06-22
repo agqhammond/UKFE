@@ -65,7 +65,7 @@ ThamesDesHydro <- DesHydro(ThamesPQ[, c(1, 3)], EventSep = 10, N = 10)
 # data from Oct 2000 to Sep 2015
 FlowDurationCurve(ThamesPQ[, c(1, 3)])
 
-## ----fig.alt="Plot showing the relationship between discharge (x-axis) and stage (y-axis). Observed measurements are shown as open circles with black borders, and a red line represents the optimised power law rating equation fitted to these observations. For this dataset, stage and discharge exhibit an almost linear relationship, with the fitted curve close to straight but showing a very gradual downward concavity while remaining continuously increasing.”"----
+## ----fig.alt="Plot showing the relationship between discharge (x-axis) and stage (y-axis). Observed measurements are shown as open circles with black borders, and a red line represents the optimised power law rating equation fitted to these observations. For this dataset, stage and discharge exhibit an almost linear relationship, with the fitted curve close to straight but showing a very gradual downward concavity while remaining continuously increasing."----
 # Make up some flow (Q) and stage data to act as gaugings
 Q <- c(177.685, 240.898, 221.954, 205.55, 383.051, 154.061, 216.582)
 Stage <- c(1.855, 2.109, 2.037, 1.972, 2.574, 1.748, 2.016)
@@ -74,10 +74,18 @@ Observations <- data.frame(Q, Stage)
 # Apply the rating function
 Rating(Observations)
 
-## ----fig.alt="Depth–Duration–Frequency (DDF) plot showing rainfall depth in millimetres (y-axis) as a function of storm duration in hours (x-axis) for a range of return periods. Each curve represents a different return period. All curves follow the characteristic DDF shape, with rainfall depth increasing as event rarity increases and with longer storm durations, particularly at the higher return periods."----
+## ----fig.alt="Depth–Duration–Frequency (DDF) plot showing rainfall depth in millimetres (y-axis) as a function of storm duration in hours (x-axis) for a range of return periods. Each curve represents a different return period. All curves follow the characteristic DDF shape, with rainfall depth increasing as event rarity increases and with longer storm durations, particularly at the longer return periods."----
 # Extract 15-minute rainfall from the St Ives (Cambridgeshire) rain gauge
-StIves <- GetDataEA_Rain(WISKI_ID = "179365", Period = "15Mins", From = "2022-01-01", To = "2025-01-31")
+StIves <- tryCatch(
+  GetDataEA_Rain(WISKI_ID = "179365", Period = "15Mins", From = "2022-01-01", To = "2025-01-31"),
+  error = function(e) NULL
+)
 
-# Apply the DDF function.
-DDFExtract(StIves)
+
+if (!is.null(StIves) && nrow(StIves) > 0) {
+  DDFExtract(StIves)
+} else {
+  message("Environment Agency API did not return data; skipping plot generation.")
+}
+
 

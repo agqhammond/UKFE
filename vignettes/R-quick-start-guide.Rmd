@@ -107,7 +107,7 @@ If you are finding the UKFE documentation difficult to follow, or if you would l
 
 ## Webinars and video tutorials
 
-- [**Posit Webinars**](https://posit.co/resources/videos/) feature recorded sessions on a wide range of topics, from beginner to advanced level.
+- [**Posit Webinars**](https://posit.co/videos) feature recorded sessions on a wide range of topics, from beginner to advanced level.
 - **YouTube** also hosts many high-quality R tutorials and lecture series. Searching for “R programming for beginners” will return playlists of relevant material.  
 - **Coursera** offers structured R courses from universities such as Johns Hopkins and the University of Washington. These courses are suitable for beginners and are sometimes available for free or with financial aid.
 

@@ -4,7 +4,7 @@ The primary purpose of the UKFE R package is to implement the regional flood fre
 
 The UKFE package was initially developed by Anthony Hammond in 2020, and he has been updating it regularly since then with additional functionality and in response to new published methods and changes to best practice. 
 
-In 2025, the Environment Agency commissioned JBA Consulting to undertake testing of the package, to write this documentation and training material and to assess future needs. Changes to the package for v1.0.0 were a result of this testing and funded by the Environment Agency. The package has been updated since to account for changes to the FEH method and for general improvements and bug fixes. The GitHub webpages including vignette guides, function reference, and a change log, can be found here: <https://agqhammond.github.io/UKFE>. At the time of writing, the training material is out of date. 
+In 2025, the Environment Agency commissioned JBA Consulting to undertake testing of the package, to write this documentation and training material and to assess future needs. Changes to the package for v1.0.0 were a result of this testing and funded by the Environment Agency. The package has been updated since to account for changes to the FEH method and for general improvements and bug fixes. The GitHub webpages including vignette guides, function reference, and a change log, can be found here: <https://agqhammond.github.io/UKFE/>. At the time of writing, the training material is out of date. 
 
 # Contents
 
@@ -32,7 +32,7 @@ Note that some of the information in the vignettes is based on that of the Flood
 
 # Hints and tips
 
-For more information about the functions discussed in the guides and further functions of the package, all the functions are detailed in the 'References' tab (with links to their help files) and in a PDF via the following link: <https://cran.r-project.org/web/packages/UKFE/UKFE.pdf>
+For more information about the functions discussed in the guides and further functions of the package, all the functions are detailed in the 'References' tab (with links to their help files) and in a PDF under Reference Manual via the following link: <https://CRAN.R-project.org/package=UKFE>
 
 Details can also be viewed in the package documentation within the 'R' environment. To get help with individual functions, you can type `help(FunctionName)` or `?FunctionName`. If using RStudio, you can click on the 'Packages' tab in the bottom right pane (assuming the default layout), search for UKFE, and then click on it. You will then see a list of functions; each can be clicked for more details. To get a list of the function names, type `ls("package:UKFE")`.
 
@@ -42,7 +42,7 @@ Many of the examples throughout this documentation have the outputs from running
 
 # Installation guide
 
-It is recommended that the UKFE R package be used in RStudio (an integrated development environment for R). You will first need to install R from <https://cran.r-project.org/> and then RStudio can be downloaded from <https://posit.co/download/rstudio-desktop/>.
+It is recommended that the UKFE R package be used in RStudio (an integrated development environment for R). You will first need to install R from <https://cran.r-project.org/> and then RStudio can be downloaded from <https://docs.posit.co/ide/user/#rstudio-ide-oss-downloads>.
 
 Once RStudio is open, the package must be installed and then loaded to access its functions.
 
