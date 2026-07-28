@@ -3724,13 +3724,13 @@ DiagPlots <- function(x, gauged = FALSE, UrbMax = 0.03) {
   plot(NRFAData$LSkew, NRFAData$Lcv, main = "", xlab = "LSkew", ylab = "Lcv", pch = 19, cex = 0.4)
   points(x$LSkew, x$Lcv, pch = 21, cex = 1.15, bg = "blue")
   if (gauged == TRUE) {
-    points(LSkew(AMAX$Flow), Lcv(AMAX$Flow), pch = 19, col = "red")
+    points(x$LSkew[1], x$Lcv[1], pch = 19, col = "red")
   }
 
   plot(NRFAData$LSkew, NRFAData$LKurt, main = "", xlab = "LSkew", ylab = "LKurtosis", pch = 19, cex = 0.4)
   points(x$LSkew, x$LKurt, pch = 21, cex = 1.15, bg = "blue")
   if (gauged == TRUE) {
-    points(LSkew(AMAX$Flow), LKurt(AMAX$Flow), pch = 19, col = "red")
+    points(x$LSkew[1], x$LKurt[1], pch = 19, col = "red")
   }
 
   plot(UKOutline$X_BNG / 1000, UKOutline$Y_BNG / 1000, pch = 19, cex = 0.25, xlab = "Easting (km)", ylab = "Northing (km)", xlim = c((25272 / 1000), (650000 / 1000)))
@@ -5873,12 +5873,12 @@ GoFComparePool <- function(x) {
   if(! identical(colnames(x), colnames(PoolTest))  ) stop("x must be a Pooling group which can be derived using the Pool function.")
 
 
-  Standardise <- function(y) {
-    GetAM(rownames(x)[1])[, 2] / median(GetAM(rownames(x)[1])[, 2])
+  Standardise <- function(x,y) {
+    GetAM(rownames(x)[y])[, 2] / median(GetAM(rownames(x)[y])[, 2])
   }
   AMList <- list()
   for (i in 1:nrow(x)) {
-    AMList[[i]] <- Standardise(rownames(x)[i])
+    AMList[[i]] <- Standardise(x, y = i)
   }
   AMvec <- AMList[[1]]
   for (i in 2:length(AMList)) {
@@ -6013,6 +6013,7 @@ ERPlot <- function(x, dist = "GenLog", main = NULL, Pars = NULL, GF = NULL, ERTy
 #' The red line shows the average seasonality. The longer it is the more clustered in time the peaks are.
 #' @param x A dataframe with Date or POSIXct in the first folumn and numeric in the second.
 #' @param Lines Logic with a default of FALSE. If TRUE, lines are plotted instead of dots.
+#' @param Main Title for the plot. The default is "Seasonality".
 #' @examples
 #' # Get an AMAX sample and plot the seasonality
 #' am_27083 <- GetAM(27083)
@@ -6024,7 +6025,7 @@ ERPlot <- function(x, dist = "GenLog", main = NULL, Pars = NULL, GF = NULL, ERTy
 #' @return A seasonality plot
 #' @author Anthony Hammond
 
-Seasonality <- function(x, Lines = FALSE) {
+Seasonality <- function(x, Lines = FALSE, Main = "Seasonality") {
   #if(class(x) != class(data.frame(c(1,2,3)))) stop("x must be a data frame with Date or POSIXct in the first column and numeric in the second.")
   #if(class(x[,1]) != as.Date("2025-01-01") & class(x[,1]) != as.POSIXct("2025-01-01 09:00:00")) stop("x must be a data frame with Date or POSIXct in the first column and numeric in the second.")
   x <- x[, 1:2]
@@ -6100,9 +6101,10 @@ Seasonality <- function(x, Lines = FALSE) {
   }
 
   xSeas <- SeasonFunc(xdf = x)
-  CirclePlotFunc(xSeas, main = "Seasonality", Lines = Lines)
+  CirclePlotFunc(xSeas, main = Main, Lines = Lines)
 
 }
+
 
 
 
