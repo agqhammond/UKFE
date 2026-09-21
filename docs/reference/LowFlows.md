@@ -1,0 +1,100 @@
+# Low Flows
+
+A function to estimate lower flow quantiles in ungauged catchments.
+
+## Usage
+
+``` r
+LowFlows(
+  CDs = NULL,
+  AREA = NULL,
+  SAAR = NULL,
+  BFIHOST = NULL,
+  Exclude = NULL,
+  FARLRange = NULL,
+  N = 10
+)
+```
+
+## Arguments
+
+- CDs:
+
+  Catchment descriptors derived from the GetCDs or CDsXML function.
+
+- AREA:
+
+  Catchment area (km2) - for when CDs is not applied
+
+- SAAR:
+
+  Average annual rainfall (mm) - for when CDs is not applied
+
+- BFIHOST:
+
+  An estimate of baseflow index - for when CDs is not applied
+
+- Exclude:
+
+  A site reference. This is to exclude sites that you do not want used
+  in the estimate. For example, if you're seeing how the function
+  performs on a gauged site, you may want to exclude it from the
+  analysis.
+
+- FARLRange:
+
+  A vector of length 2. For example c(0.9,1). This determines a FARL
+  range for the catchments you wish to be included in the analysis.
+  Primarily this is to exclude sites which have significant reservoir or
+  lake influence when the site of interest does not. If it is NULL
+  (default) all NRFA sites are included.
+
+- N:
+
+  Number of donor gauges to use for the assessment. The default is 10.
+
+## Value
+
+A list. The first element of which is a data.frame with three columns.
+The first is the flow estimates, the second and third are the 90
+
+## Details
+
+This function provides estimates of the mean flow, Q95, Q70, Q50, Q10,
+and Q5. The function works by calculating scaled flows for the catchment
+of interest from the catchments in the NRFA data set. The scaled flow is
+calculated as Qsi = Qdi \* (Area_s / Area_di) \* (SAAR_s / SAAR_di),
+where the subscripts s and d denote the subject site and the donor site,
+respectively. A Euclidean distance measure is then used to find the most
+similar sites using catchment area, SAAR, and BFIHOST. The distance
+measure is weighted by how correlated each variable is to the scaling
+factor: Scale_f = Q_d / (Area_d \* SAAR_d), and the variables are
+normalised by the standard deviation (log variables are used). A
+weighted average of the scaled flow is taken from the most similar N
+sites, and the weighting is based on the reciprocal of the similarity.
+The function was subjected to a leave one out cross validation (LOOCV).
+The results across the estimated flows show no systematic biases and the
+errors show no correlation with the descriptors used in the estimation
+process. The factorial standard error (FSE) was calculated from the
+LOOCV process for each of the six estimated flows and these are used to
+calculate 90 percent confidence intervals for the estimates. The FSEs
+are 1.25, 1.74, 1.44, 1.34, 1.29, and 1.27, for the mean flow, Q95, Q70,
+Q50, Q10, Q5, respectively.
+
+## Author
+
+Anthony Hammond
+
+## Examples
+
+``` r
+# Get some catchment descriptors, then estimate the flows
+if (FALSE) { # \dontrun{
+CDs_27083 <- GetCDs(27083)
+LowFlows(CDs_27083)
+} # }
+# Now estimate again but remove gauge 27083 from the analysis
+if (FALSE) { # \dontrun{
+LowFlows(CDs_27083, Exclude = 27083)
+} # }
+```

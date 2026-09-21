@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">UKFE</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.0.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.15.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -89,18 +89,17 @@
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Simulate a sample of size 30 from a GenLog distribution with parameters 299, 51, -0.042</span></span></span>
 <span class="r-in"><span><span class="fu">SimData</span><span class="op">(</span><span class="fl">30</span>, pars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">299</span>, <span class="fl">51</span>, <span class="op">-</span><span class="fl">0.042</span><span class="op">)</span>, dist <span class="op">=</span> <span class="st">"GenLog"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 390.9486 268.8843 284.3815 212.2267 190.2311 306.3218 449.8824 268.7648</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] 312.5144 343.4222 384.2825 263.7688 231.1075 276.9832 304.7158 334.4386</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [17] 354.9548 306.0015 168.0762 214.4707 488.9516 356.5832 221.0112 368.6128</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [25] 303.6998 390.3219 333.7019 527.9413 236.7162 214.4107</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 274.0172 329.7226 545.0702 422.6694 382.0729 177.7944 300.4819 390.2519</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] 320.7621 250.8635 331.4056 335.0133 254.7945 318.2937 221.8416 363.1633</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [17] 171.1708 216.9310 203.0865 216.3657 297.3341 345.5515 333.0459 296.2135</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [25] 333.2960 352.7701 389.9641 203.3808 263.3363 382.9259</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Now simulate using the Lcv, Lskew, and median (0.17, 0.04, 310)</span></span></span>
 <span class="r-in"><span><span class="fu">SimData</span><span class="op">(</span><span class="fl">30</span>, GF <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.17</span>, <span class="fl">0.04</span>, <span class="fl">310</span><span class="op">)</span>, dist <span class="op">=</span> <span class="st">"GenLog"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 105.78344 302.29574 334.92647 251.55452 290.44185 460.22382 190.34931</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [8] 489.13527 386.82003  87.08592 443.78272 583.82419 198.46745 342.92966</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [15] 332.94387 240.96332 385.09614 318.66970 236.72322 323.97874 335.27580</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [22] 189.92024 378.16205 308.28490 432.31989 305.77767 217.86008 199.20880</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [29] 351.83996 300.66706</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 333.3579 345.4705 312.2723 251.8286 259.5463 155.3348 109.7751 356.2868</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] 335.8716 414.5049 362.9411 426.9810 469.3626 289.0905 338.8779 295.8336</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [17] 352.6609 339.9407 312.1338 183.7642 375.7741 187.5143 350.4723 300.8333</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [25] 409.3771 219.8992 261.9359 325.7662 233.4561 240.9224</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
@@ -113,7 +112,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>

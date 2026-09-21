@@ -136,6 +136,8 @@ Pool <- function(CDs, N = 800, UrbMax = 0.03, DeUrb = TRUE, exclude = NULL, incl
     if(length(include) != 1) stop("The 'include' argument must have a length of 1")
     IncludeIndex <- match(include, rownames(PeakFlowData))
     if(is.na(IncludeIndex)) stop("The site ID used in the include argument is not in the PeakFlowDataSet")
+    MatchGroup <- match(include, rownames(Result))
+    if(is.na(MatchGroup) == FALSE) stop("The gauge you are attempting to include is already in the pooling group")
     RowAdd <- PeakFlowData[IncludeIndex,]
     SDMAdd <- SDM(CDs = CDs, PeakFlowData$AREA[IncludeIndex],
                   PeakFlowData$SAAR9120[IncludeIndex],
@@ -475,6 +477,7 @@ Kappa3GF <- function(lcv, lskew, RP) {
   GrRes <- gr(KRes)
   B <- (lcv * KRes) / ((GrRes[1] - GrRes[2]) + lcv * (GrRes[1] - (log(2.22)^KRes)))
   xT <- 1 + (B / KRes) * (log(2.22)^KRes - ((1 - ((RP - 1) / RP)^-0.4) / -0.4)^KRes)
+  xT[1] <- 1
   return(xT)
 }
 
@@ -3126,7 +3129,7 @@ EVPlot <- function(x, dist = "GenLog", scaled = TRUE, Title = "Extreme value plo
   } else {
     if(is.null(LineName) == TRUE) {
       if(scaled == FALSE) {legend("topleft", legend = c("Frequency curve", "Observed", "95% Intervals"), col = c("black", "blue", "black"), lty = c(1,0,3), pch = c(NA, 1, NA), bty = "n", lwd = c(2,NA,2), pt.lwd = 1.5, seg.len = 2, x.intersp = 0.8, y.intersp = 0.8, cex = 0.8)} else {legend("topleft", legend = c("Growth curve", "Observed", "95% Intervals"), col = c("black", "blue", "black"), lty = c(1,0,3), pch = c(NA, 1, NA), bty = "n", lwd = c(2,NA,2), pt.lwd = 1.5, seg.len = 2, x.intersp = 0.8, y.intersp = 0.8, cex = 0.8)}
-    } else {legend("topleft", legend = c(LineName, "Observed", "95% Intervals"), col = c("black", "blue", "black"), lty = c(1,0,3), pch = c(NA, 1, NA), bty = "n", lwd = c(2,NA,2), pt.lwd = 1.5, seg.len = 2, x.intersp = 0.8, y.intersp = 0.8, cex = 0.8)}
+    } else {legend("topleft", legend = c(LineName, "Observed", "95% Interval"), col = c("black", "blue", "black"), lty = c(1,0,3), pch = c(NA, 1, NA), bty = "n", lwd = c(2,NA,2), pt.lwd = 1.5, seg.len = 2, x.intersp = 0.8, y.intersp = 0.8, cex = 0.8)}
   }
   T.Plot.Lab <- c(2,5,10,20,50,100, 500)
   At <- log(T.Plot.Lab-1)
@@ -4220,7 +4223,7 @@ DDFImport <- function(x, ARF = TRUE, Plot = TRUE, DDFVersion = 22) {
     )
     abline(v = seq(0, 1000, by = 20), lty = 3)
     abline(h = seq(0, 1000, by = 20), lty = 3)
-    legend("topleft",
+    legend("bottomright",
            legend = c("2", "10", "56", "100", "180", "560"),
            col = hcl.colors(6, rev = TRUE), lty = c(1, 2, 3, 4, 5, 6), lwd = 2, cex = 0.9, y.intersp = 0.7,
            x.intersp = 0.7, title = "Return Period (yrs)"
@@ -6115,12 +6118,12 @@ Seasonality <- function(x, Lines = FALSE, Main = "Seasonality") {
 #'
 #' This function applies the case where only the number of exceedances are known. Not the case where the discharge of the historic floods is known.
 #' This latter functionality will be added at a later date.
-#' Note that if Uncertainty is set to TRUE, a range of return periods and associated estimates are returned along with uncertainty - quantified as the FSE. In some cases the uncertainty can increase. This happens when the additional information (number of exceedances and time period) does not outweigh an increase to the scale of skew parameter.
+#' Note that if Uncertainty is set to TRUE, a range of return periods and associated estimates are returned along with uncertainty - quantified as the FSE. In some cases the uncertainty can increase. This happens when the additional information (number of exceedances and time period) does not outweigh an increase to the scale and/or skew parameter.
 #' The uncertainty calculated is a function of sample size and variance.
 #' @param x The observed annual maximum sample. A single numeric vector
 #' @param k The number of exceedances of the threshold
 #' @param h the time period (years) over which the exceedances occurred.
-#' @param threshold The perception threshold. This is the threshold we think the k events exceeded.
+#' @param threshold The perception threshold. This is the threshold (discharge) we think the k events exceeded.
 #' @param dist The choice of statistical distribution. Either "GenLog", or "GEV".
 #' @param Uncertainty Logical argument with a default of FALSE. If TRUE, a data frame of results and uncertainty is also returned.
 #' @examples

@@ -1,0 +1,94 @@
+# Uncertainty quantification for gauged and ungauged pooled estimates
+
+Uncertainty for both the gauged and ungauged case are quantified
+specifically (bespoke) for the pooling group according to methods
+detailed in Hammond, A. (2021). Sampling uncertainty of UK design flood
+estimation. Hydrology Research. 1357-1371. 52 (6). Note that this
+function only quantifies sampling (aleatoric) uncertainty. It does not
+quantify uncertainty associated with models, model choices applied, or
+hydrometric data. The method assumes that AMAX samples within the
+pooling group are independent of each other and serially independent and
+identically distributed. The default ungauged QMED fse is 1.5. This is
+the FSE for the QMED 2025 regression model for all catchments suitable
+for QMED estimation. If Gauged = TRUE, the assumption is that the top
+site in the pooling group is the gauged subject site. In the Gauged case
+the pooling group is bootstrapped (parametrically) 200 times to create
+200 pooling groups. Then the PoolEst function is applied to each of the
+200 resampled pooling groups along with 200 resampled QMED from the
+gauged subject site. The FSE is calculated from the range of 200
+estimates for each return period. In the ungauged case, each gauge is
+bootstrapped (parametrically) w x 200 times, where w is the weighting of
+the gauge. The growth factors for the associated 200 LMoment ratios are
+calculated and multiplied by a sampled QMED based on the fseQMED value.
+i.e SampledQMED = exp(rnorm(1, log(QMEDEstimate), log(fseQMED)). Then
+the FSEs are calculated across the 200 results for each return period.
+
+## Usage
+
+``` r
+Uncertainty(
+  x,
+  dist = "GenLog",
+  Gauged = FALSE,
+  QMEDEstimate = NULL,
+  fseQMED = 1.5
+)
+```
+
+## Arguments
+
+- x:
+
+  the pooled group derived from the Pool() function.
+
+- dist:
+
+  a choice of distribution to use for the estimates. Choices are "GEV",
+  "GenLog", "Gumbel", or "Kappa3". The default is "GenLog".
+
+- Gauged:
+
+  a logical argument with a default of FALSE. If FALSE the uncertainty
+  is quantified for the ungauged case. If TRUE it is quantified for the
+  gauged case.
+
+- QMEDEstimate:
+
+  the QMED estimate for the ungauged case.
+
+- fseQMED:
+
+  the factorial standard error of the QMED estimate for an ungauged
+  assessment. The default is 1.45.
+
+## Value
+
+A dataframe with 11 rows and two columns. Return period in the first
+column and factorial standard error in the second.
+
+## Author
+
+Anthony Hammond
+
+## Examples
+
+``` r
+# Derive a pooling group
+pool_203018 <- Pool(GetCDs(203018))
+
+# Calculate the factorial standard errors as if it it were ungauged.
+Uncertainty(pool_203018, QMEDEstimate = QMED(GetCDs(203018)))
+#>      RP    FSE
+#> 1     2 1.5000
+#> 2     5 1.5084
+#> 3    10 1.5261
+#> 4    20 1.5535
+#> 5    30 1.5745
+#> 6    50 1.6068
+#> 7    75 1.6375
+#> 8   100 1.6621
+#> 9   200 1.7314
+#> 10  500 1.8460
+#> 11 1000 1.9509
+
+```
