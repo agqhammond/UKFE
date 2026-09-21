@@ -1,0 +1,66 @@
+# Urban adjustment factor (UAF)
+
+UAF from catchment descriptors for QMED estimation in ungauged urban
+catchments
+
+## Usage
+
+``` r
+UAF(CDs = NULL, URBEXT, BFIHOST, IF = 0.3, PRimp = 70)
+```
+
+## Arguments
+
+- CDs:
+
+  catchment descriptors derived from either GetCDs or CDsXML
+
+- URBEXT:
+
+  quantification of catchment urbanisation and suburbanisation
+  (URBEXT2015) - used when CDs is NULL.
+
+- BFIHOST:
+
+  baseflow index as a function of hydrological soil type of the
+  catchment (BFIHOST19scaled) - used when CDs is NULL)
+
+- IF:
+
+  Impervious factor. The default is 0.3
+
+- PRimp:
+
+  The assumed percentage runoff for impermeable areas. The default is 70
+  percent.
+
+## Value
+
+The urban adjustment factor
+
+## Details
+
+The urban adjustment factor is to adjust the rural QMED estimates (as
+estimated using the QMED function) to urban estimates. This is necessary
+because the QMED equation is calibrated on rural catchments. The
+assumption is that the magnitude of QMED is impacted by urbanisation and
+that this impact can be modelled as a function of the catchment
+descriptors URBEXT and BFIHOST. This UAF function is based on URBEXT2015
+and BFIHOST19scaled.
+
+## Author
+
+Anthony Hammond
+
+## Examples
+
+``` r
+# Get some catchment descriptors for an urban catchment and calculate the UAF
+cds_53006 <- GetCDs(53006)
+UAF(cds_53006)
+#> [1] 1.214665
+
+# Calculate UAF using a user input URBEXT2015 and BFIHOST19scaled
+UAF(URBEXT = 0.1138, BFIHOST = 0.3620)
+#> [1] 1.143044
+```

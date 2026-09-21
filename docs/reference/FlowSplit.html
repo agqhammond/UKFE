@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">UKFE</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.0.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.15.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -112,6 +112,7 @@ The baseflow point on the falling limb of the hydrograph/s can be raised using t
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Next we will get a single peaked "idealised" hydrograph using the ReFH function</span></span></span>
 <span class="r-in"><span><span class="va">q_refh</span> <span class="op">&lt;-</span> <span class="fu"><a href="ReFH.html">ReFH</a></span><span class="op">(</span><span class="fu"><a href="GetCDs.html">GetCDs</a></span><span class="op">(</span><span class="fl">15006</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Water balance was violated with the initial BR setting. To correct this, BR was set as a function of the proportion of net-rain to rain (NetProp) as BR = (1/NetProp)-1</span>
 <span class="r-plt img"><img src="FlowSplit-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="va">q_refh</span> <span class="op">&lt;-</span> <span class="va">q_refh</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">TotalFlow</span></span></span>
 <span class="r-in"><span></span></span>
@@ -132,7 +133,7 @@ The baseflow point on the falling limb of the hydrograph/s can be raised using t
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>
