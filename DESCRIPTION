@@ -1,7 +1,7 @@
 Package: UKFE
 Type: Package
 Title: UK Flood Estimation
-Version: 2.15.0
+Version: 2.15.1
 Authors@R: c(
     person(given = "Anthony",
            family = "Hammond",
